@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import { AdminSidebar } from '@/components/admin/sidebar';
 import { Loader2 } from 'lucide-react';
@@ -9,12 +9,18 @@ import { Loader2 } from 'lucide-react';
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { session, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+  const isLoginPage = pathname === '/admin/login';
 
   useEffect(() => {
-    if (!loading && !session) {
+    if (!isLoginPage && !loading && !session) {
       router.replace('/admin/login');
     }
-  }, [loading, session, router]);
+  }, [isLoginPage, loading, session, router]);
+
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
 
   if (loading) {
     return (
