@@ -17,6 +17,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: 'Alex Stone | Elite Fitness Coaching & Transformations',
   description:
     'Premium personal fitness coaching by Alex Stone. Transformations, training videos, nutrition guidance, and 1:1 coaching programs.',
